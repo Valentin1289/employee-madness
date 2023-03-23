@@ -1,0 +1,60 @@
+.EquipmentLayout nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgb(76, 117, 219);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  max-height: 10vh !important;
+}
+
+.EquipmentLayout nav button {
+  padding: 0.7rem 1.7rem;
+  font-size: 0.8rem;
+
+  /* font-weight: bold; */
+}
+a > button,
+td > button {
+  font-size: 0.8rem;
+}
+
+.EquipmentLayout nav button:hover {
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
+}
+#level-options {
+  visibility: hidden;
+  color: black;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius:15px;
+  padding: 0.5%;
+  position: absolute;
+  display: flex;
+  flex-direction: column !important;
+  background-color: rgb(81, 140, 243);
+}
+#position-options {
+  visibility: hidden;
+  color: black;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius:15px;
+  padding: 0.5%;
+  position: absolute;
+  display: flex;
+  flex-direction: column !important;
+  background-color: rgb(81, 140, 243);
+}
+
+#dropdown-list {
+  color: black;
+  border-radius: 20px;
+  padding: 0.5%;
+  position: absolute;
+  display: flex;
+  flex-direction: column !important;
+  background-color: rgb(81, 140, 243);
+}

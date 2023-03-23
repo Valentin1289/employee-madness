@@ -3,10 +3,13 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./Pages/Layout";
+import EquipmentLayout from "./Pages/EquipmentLayout";
 import ErrorPage from "./Pages/ErrorPage";
 import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
+import EquipmentCreator from "./Pages/EquipmentCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import EquipmentList from "./Pages/EquipmentList";
 
 import "./index.css";
 import TableTest from "./Pages/TableTest";
@@ -38,9 +41,19 @@ const router = createBrowserRouter([
         path: "/form-test",
         element: <FormTest />,
       },
+    ],
+  },
+  {
+    path: "/Equipments",
+    element: <EquipmentLayout />,
+    errorElement: <ErrorPage />,
+    children: [
       {
         path: "/Equipments",
-        // element:
+        element: <EquipmentList />,
+      },
+      { path: "/Equipments/create",
+       element: <EquipmentCreator /> 
       },
     ],
   },
