@@ -23,7 +23,8 @@ const EmployeeList = () => {
     state.positionSelected
   );
   const [positionOptions, setPositionOptions] = useAtom(state.positionOptions);
-
+  const [orderedList, setOrderedList] = useAtom(state.orderedList);
+  console.log(orderedList);
   const handleDelete = (id) => {
     deleteEmployee(id);
 
@@ -34,22 +35,23 @@ const EmployeeList = () => {
 
   useEffect(() => {
     fetchEmployees().then((employees) => {
-      let collection = employees.reduce((arr, employee) => {
+      let levelsColection = employees.reduce((arr, employee) => {
         if (!arr.includes(employee.level)) {
           arr.push(employee.level);
         }
         return arr;
       }, []);
-      setLoading(false);
-      setEmployees(employees);
-      setLevelOptions(collection);
-      collection = employees.reduce((arr, employee) => {
+      let positionsColection = employees.reduce((arr, employee) => {
         if (!arr.includes(employee.position)) {
           arr.push(employee.position);
         }
         return arr;
       }, []);
-      setPositionOptions(collection);
+      setLoading(false);
+      setEmployees(employees);
+      setOrderedList(employees);
+      setLevelOptions(levelsColection);
+      setPositionOptions(positionsColection);
     });
   }, []);
 
@@ -60,8 +62,8 @@ const EmployeeList = () => {
   const handleFilter = () => {
     let clone =
       levelSelected.length === 0
-        ? employees
-        : employees.filter((employee) =>
+        ? orderedList
+        : orderedList.filter((employee) =>
             levelSelected.includes(employee.level)
           );
     return positionSelected.length === 0

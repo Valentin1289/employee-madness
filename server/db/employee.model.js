@@ -1,7 +1,6 @@
 // https://mongoosejs.com/
-const mongoose = require("mongoose");
 
-const { Schema } = mongoose;
+const { Schema, model } = require("mongoose");
 
 const EmployeeSchema = new Schema({
   name: String,
@@ -11,6 +10,7 @@ const EmployeeSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  equipment: { type: Schema.Types.ObjectId, ref: "Equipment" },
 });
 
-module.exports = mongoose.model("Employee", EmployeeSchema);
+module.exports = model("Employee", EmployeeSchema);

@@ -14,7 +14,13 @@
 
 .Layout nav button {
   padding: 0.7rem 1.7rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+
+  /* font-weight: bold; */
+}
+a > button,
+td > button {
+  font-size: 0.8rem;
 }
 
 .Layout nav button:hover {
@@ -23,7 +29,8 @@
 #level-options {
   visibility: hidden;
   color: black;
-  border-radius: 20px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius:15px;
   padding: 0.5%;
   position: absolute;
   display: flex;
@@ -32,6 +39,17 @@
 }
 #position-options {
   visibility: hidden;
+  color: black;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius:15px;
+  padding: 0.5%;
+  position: absolute;
+  display: flex;
+  flex-direction: column !important;
+  background-color: rgb(81, 140, 243);
+}
+
+#dropdown-list {
   color: black;
   border-radius: 20px;
   padding: 0.5%;

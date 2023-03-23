@@ -2,6 +2,8 @@ import { Outlet, Link } from "react-router-dom";
 import { useAtom } from "jotai";
 import state from "../Atom";
 import { useRef } from "react";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./Layout.css";
 
@@ -12,6 +14,7 @@ const Layout = () => {
     state.positionSelected
   );
   const [positionOptions, setPositionOptions] = useAtom(state.positionOptions);
+  const [orderedList, setOrderedList] = useAtom(state.orderedList);
 
   const lvlOptDiv = useRef(null);
   const posOptDiv = useRef(null);
@@ -30,12 +33,114 @@ const Layout = () => {
       target.style.visibility = "visible";
     }
   };
+  const handlesort = (poz) => {
+    poz === 0
+      ? setOrderedList((prev) => {
+          return [
+            ...prev.sort((a, b) =>
+              a.name.split(" ")[0] < b.name.split(" ")[0] ? -1 : 1
+            ),
+          ];
+        })
+      : poz === 1
+      ? setOrderedList((prev) => {
+          return [
+            ...prev.sort((a, b) =>
+              a.name.split(" ")[a.name.split(" ").length - 1] <
+              b.name.split(" ")[b.name.split(" ").length - 1]
+                ? -1
+                : 1
+            ),
+          ];
+        })
+      : poz === 2
+      ? setOrderedList((prev) => {
+          return [
+            ...prev.sort((a, b) =>
+              a.name.split(" ").length === 3
+                ? b.name.split(" ").length === 3
+                  ? a.name.split(" ")[1] < b.name.split(" ")[1]
+                    ? -1
+                    : 1
+                  : -1
+                : 1
+            ),
+          ];
+        })
+      : poz === 3
+      ? setOrderedList((prev) => {
+          return [...prev.sort((a, b) => (a.level < b.level ? -1 : 1))];
+        })
+      : poz === 4
+      ? setOrderedList((prev) => {
+          return [...prev.sort((a, b) => (a.position < b.position ? -1 : 1))];
+        })
+      : setOrderedList(orderedList);
+  };
   return (
     <div className="Layout">
       <nav>
         <ul>
           <li className="grow">
             <Link to="/">Employees</Link>
+          </li>
+          <li className="grow">
+            <Link to="/Equipments">Equipments</Link>
+          </li>
+          <li className="sort-by">
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <NavDropdown
+                title="Sort by"
+                id="basic-nav-dropdown"
+                style={{ width: "17vw", marginLeft: "1vw" }}
+              >
+                <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                  <button
+                    onClick={() => {
+                      handlesort(0);
+                    }}
+                  >
+                    Name
+                  </button>
+                </NavDropdown.Item>
+                <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                  <button
+                    onClick={() => {
+                      handlesort(1);
+                    }}
+                  >
+                    Last name
+                  </button>
+                </NavDropdown.Item>
+                <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                  <button
+                    onClick={() => {
+                      handlesort(2);
+                    }}
+                  >
+                    Middle name
+                  </button>
+                </NavDropdown.Item>
+                <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                  <button
+                    onClick={() => {
+                      handlesort(3);
+                    }}
+                  >
+                    Level
+                  </button>
+                </NavDropdown.Item>
+                <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                  <button
+                    onClick={() => {
+                      handlesort(4);
+                    }}
+                  >
+                    Position
+                  </button>
+                </NavDropdown.Item>
+              </NavDropdown>
+            </div>
           </li>
           <li className="filter">
             <Link to="/"></Link>
@@ -63,7 +168,6 @@ const Layout = () => {
               })}
             </div>
           </li>
-
           <li className="filter">
             <Link to="/"></Link>
             <button
