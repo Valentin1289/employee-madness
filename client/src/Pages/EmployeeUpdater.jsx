@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
@@ -28,20 +27,18 @@ const EmployeeUpdater = () => {
 
   useEffect(() => {
     setEmployeeLoading(true);
-    fetchEmployee(id)
-      .then((employee) => {
-        setEmployee(employee);
-        setEmployeeLoading(false);
-      });
+    fetchEmployee(id).then((employee) => {
+      setEmployee(employee);
+      setEmployeeLoading(false);
+    });
   }, [id]);
 
   const handleUpdateEmployee = (employee) => {
     setUpdateLoading(true);
-    updateEmployee(employee)
-      .then(() => {
-        setUpdateLoading(false);
-        navigate("/");
-      });
+    updateEmployee(employee).then(() => {
+      setUpdateLoading(false);
+      navigate("/");
+    });
   };
 
   if (employeeLoading) {

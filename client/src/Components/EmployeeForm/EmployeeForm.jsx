@@ -1,4 +1,11 @@
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState,useEffect } from "react";
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+const [equipments,setEquipments]=useState([])
+useEffect(fetch())
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -45,6 +52,21 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           id="position"
         />
       </div>
+      <NavDropdown
+        title="Sort by"
+        id="basic-nav-dropdown"
+        style={{ width: "17vw", marginLeft: "1vw" }}
+      >
+        <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+          <button
+          // onClick={() => {
+          //   handlesort(0);
+          // }}
+          >
+            Name
+          </button>
+        </NavDropdown.Item>
+      </NavDropdown>
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>

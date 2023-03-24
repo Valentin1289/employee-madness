@@ -19,9 +19,7 @@ const EquipmentList = () => {
   const [equipments, setEquipments] = useState(null);
   const [typeOptions, setTypeOptions] = useAtom(state.typeOptions);
   const [typeSelected, setTypeSelected] = useAtom(state.typeSelected);
-  const [amountSelected, setAmountlSelected] = useAtom(
-    state.amountSelected
-  );
+  const [amountSelected, setAmountlSelected] = useAtom(state.amountSelected);
   const [amountOptions, setAmountOptions] = useAtom(state.amountOptions);
   const [orderedList, setOrderedList] = useAtom(state.orderedList);
   const handleDelete = (id) => {
@@ -67,9 +65,7 @@ const EquipmentList = () => {
           );
     return amountSelected.length === 0
       ? clone
-      : clone.filter((equipment) =>
-          amountSelected.includes(equipment.amount)
-        );
+      : clone.filter((equipment) => amountSelected.includes(equipment.amount));
   };
 
   return (

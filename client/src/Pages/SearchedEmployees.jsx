@@ -15,7 +15,7 @@ const deleteEmployee = (id) => {
   );
 };
 
-const EmployeeList = () => {
+const SearchedEmployees = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [levelOptions, setLevelOptions] = useAtom(state.levelOptions);
@@ -41,6 +41,12 @@ const EmployeeList = () => {
 
   useEffect(() => {
     fetchEmployees().then((employees) => {
+      employees =
+        search && search !== "/"
+          ? employees.filter((el) =>
+              el.name.toLowerCase().includes(search.toLowerCase())
+            )
+          : employees;
       let levelsColection = employees.reduce((arr, employee) => {
         if (!arr.includes(employee.level)) {
           arr.push(employee.level);
@@ -86,4 +92,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default SearchedEmployees;

@@ -11,10 +11,12 @@ import EquipmentCreator from "./Pages/EquipmentCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import EquipmentList from "./Pages/EquipmentList";
+import SearchedEmployees from "./Pages/SearchedEmployees";
 
 import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
+import MissingEmployees from "./Pages/MissingEmployees";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "/form-test",
         element: <FormTest />,
+      },
+      {
+        path: "/employees/:search",
+        element: <SearchedEmployees />,
+      },
+      {
+        path: "/missing",
+        element: <MissingEmployees />,
       },
     ],
   },

@@ -142,6 +142,11 @@ const Layout = () => {
               </NavDropdown>
             </div>
           </li>
+          <li>
+            <Link to="/missing">
+              <button type="button">Missing Employees</button>
+            </Link>
+          </li>
           <li className="filter">
             <Link to="/"></Link>
             <button

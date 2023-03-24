@@ -8,6 +8,7 @@ const state = {
   typeSelected: atom([]),
   amountOptions: atom([]),
   amountSelected: atom([]),
-  orderedList: atom([])
+  orderedList: atom([]),
+  presence:atom([])
 };
 export default state

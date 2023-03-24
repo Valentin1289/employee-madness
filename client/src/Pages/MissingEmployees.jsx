@@ -15,7 +15,7 @@ const deleteEmployee = (id) => {
   );
 };
 
-const EmployeeList = () => {
+const MissingEmployees = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [levelOptions, setLevelOptions] = useAtom(state.levelOptions);
@@ -25,8 +25,9 @@ const EmployeeList = () => {
   );
   const [positionOptions, setPositionOptions] = useAtom(state.positionOptions);
   const [orderedList, setOrderedList] = useAtom(state.orderedList);
-  const { search } = useParams();
-  const location = useLocation();
+  const [presence, setPresence] = useAtom(
+    state.presence
+  );
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -41,6 +42,9 @@ const EmployeeList = () => {
 
   useEffect(() => {
     fetchEmployees().then((employees) => {
+      employees = employees.filter((employee) =>
+        !presence.includes(employee._id)
+      );
       let levelsColection = employees.reduce((arr, employee) => {
         if (!arr.includes(employee.level)) {
           arr.push(employee.level);
@@ -86,4 +90,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default MissingEmployees;
