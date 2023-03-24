@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./EquipmentTable.css";
 
-const EquipmentTable = ({ employees, onDelete }) => (
+const EquipmentTable = ({ equipments, onDelete }) => (
   <div className="EquipmentTable">
     <table>
       <thead>
@@ -13,16 +13,16 @@ const EquipmentTable = ({ employees, onDelete }) => (
         </tr>
       </thead>
       <tbody>
-        {employees.map((employee) => (
-          <tr key={employee._id}>
-            <td>{employee.name}</td>
-            <td>{employee.type}</td>
-            <td>{employee.amount}</td>
+        {equipments.map((equipment) => (
+          <tr key={equipment._id}>
+            <td>{equipment.name}</td>
+            <td>{equipment.type}</td>
+            <td>{equipment.amount}</td>
             <td>
-              <Link to={`/update/${employee._id}`}>
+              <Link to={`/Equipments/update/${equipment._id}`}>
                 <button type="button">Update</button>
               </Link>
-              <button type="button" onClick={() => onDelete(employee._id)}>
+              <button type="button" onClick={() => onDelete(equipment._id)}>
                 Delete
               </button>
             </td>

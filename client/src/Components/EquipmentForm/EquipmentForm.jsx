@@ -1,4 +1,5 @@
 const EquipmentForm = ({ onSave, disabled, equipment, onCancel }) => {
+  console.log(equipment);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -9,7 +10,6 @@ const EquipmentForm = ({ onSave, disabled, equipment, onCancel }) => {
       acc[k] = v;
       return acc;
     }, {});
-    console.log(equipment);
     return onSave(equipment);
   };
 
@@ -31,7 +31,7 @@ const EquipmentForm = ({ onSave, disabled, equipment, onCancel }) => {
       <div className="control">
         <label htmlFor="type">Type:</label>
         <input
-          defaultValue={equipment ? equipment.level : null}
+          defaultValue={equipment ? equipment.type : null}
           name="type"
           id="type"
         />
@@ -40,7 +40,7 @@ const EquipmentForm = ({ onSave, disabled, equipment, onCancel }) => {
       <div className="control">
         <label htmlFor="amount">Amount:</label>
         <input
-          defaultValue={equipment ? equipment.position : null}
+          defaultValue={equipment ? equipment.amount : null}
           name="amount"
           id="amount"
         />

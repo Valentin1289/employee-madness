@@ -4,6 +4,10 @@ const state = {
   levelSelected: atom([]),
   positionOptions: atom([]),
   positionSelected: atom([]),
+  typeOptions: atom([]),
+  typeSelected: atom([]),
+  amountOptions: atom([]),
+  amountSelected: atom([]),
   orderedList: atom([])
 };
 export default state

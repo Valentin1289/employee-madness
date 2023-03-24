@@ -9,6 +9,7 @@ import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EquipmentCreator from "./Pages/EquipmentCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import EquipmentList from "./Pages/EquipmentList";
 
 import "./index.css";
@@ -52,8 +53,10 @@ const router = createBrowserRouter([
         path: "/Equipments",
         element: <EquipmentList />,
       },
-      { path: "/Equipments/create",
-       element: <EquipmentCreator /> 
+      { path: "/Equipments/create", element: <EquipmentCreator /> },
+      {
+        path: "/Equipments/update/:id",
+        element: <EquipmentUpdater />,
       },
     ],
   },

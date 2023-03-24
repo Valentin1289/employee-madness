@@ -4,54 +4,53 @@ import EquipmentTable from "../Components/EquipmentTable";
 import { useAtom } from "jotai";
 import state from "./Atom";
 
-const fetchEmployees = () => {
+const fetchEquipments = () => {
   return fetch("/api/equipments").then((res) => res.json());
 };
 
-const deleteEmployee = (id) => {
-  return fetch(`/api/employees/${id}`, { method: "DELETE" }).then((res) =>
+const deleteEquipment = (id) => {
+  return fetch(`/api/equipments/${id}`, { method: "DELETE" }).then((res) =>
     res.json()
   );
 };
 
 const EquipmentList = () => {
   const [loading, setLoading] = useState(true);
-  const [employees, setEmployees] = useState(null);
-  const [levelOptions, setLevelOptions] = useAtom(state.levelOptions);
-  const [levelSelected, setLevelSelected] = useAtom(state.levelSelected);
-  const [positionSelected, setPositionlSelected] = useAtom(
-    state.positionSelected
+  const [equipments, setEquipments] = useState(null);
+  const [typeOptions, setTypeOptions] = useAtom(state.typeOptions);
+  const [typeSelected, setTypeSelected] = useAtom(state.typeSelected);
+  const [amountSelected, setAmountlSelected] = useAtom(
+    state.amountSelected
   );
-  const [positionOptions, setPositionOptions] = useAtom(state.positionOptions);
+  const [amountOptions, setAmountOptions] = useAtom(state.amountOptions);
   const [orderedList, setOrderedList] = useAtom(state.orderedList);
-  console.log(orderedList);
   const handleDelete = (id) => {
-    deleteEmployee(id);
+    deleteEquipment(id);
 
-    setEmployees((employees) => {
-      return employees.filter((employee) => employee._id !== id);
+    setEquipments((equipments) => {
+      return equipments.filter((equipment) => equipment._id !== id);
     });
   };
 
   useEffect(() => {
-    fetchEmployees().then((employees) => {
-      let levelsColection = employees.reduce((arr, employee) => {
-        if (!arr.includes(employee.level)) {
-          arr.push(employee.level);
+    fetchEquipments().then((equipments) => {
+      let typesColection = equipments.reduce((arr, equipment) => {
+        if (!arr.includes(equipment.type)) {
+          arr.push(equipment.type);
         }
         return arr;
       }, []);
-      let positionsColection = employees.reduce((arr, employee) => {
-        if (!arr.includes(employee.position)) {
-          arr.push(employee.position);
+      let amountsColection = equipments.reduce((arr, equipment) => {
+        if (!arr.includes(equipment.amount)) {
+          arr.push(equipment.amount);
         }
         return arr;
       }, []);
       setLoading(false);
-      setEmployees(employees);
-      setOrderedList(employees);
-      setLevelOptions(levelsColection);
-      setPositionOptions(positionsColection);
+      setEquipments(equipments);
+      setOrderedList(equipments);
+      setTypeOptions(typesColection);
+      setAmountOptions(amountsColection);
     });
   }, []);
 
@@ -61,21 +60,21 @@ const EquipmentList = () => {
 
   const handleFilter = () => {
     let clone =
-      levelSelected.length === 0
+      typeSelected.length === 0
         ? orderedList
-        : orderedList.filter((employee) =>
-            levelSelected.includes(employee.level)
+        : orderedList.filter((equipment) =>
+            typeSelected.includes(equipment.type)
           );
-    return positionSelected.length === 0
+    return amountSelected.length === 0
       ? clone
-      : clone.filter((employee) =>
-          positionSelected.includes(employee.position)
+      : clone.filter((equipment) =>
+          amountSelected.includes(equipment.amount)
         );
   };
 
   return (
     <>
-      <EquipmentTable employees={handleFilter()} onDelete={handleDelete} />;
+      <EquipmentTable equipments={equipments} onDelete={handleDelete} />;
     </>
   );
 };

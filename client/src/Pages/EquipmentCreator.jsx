@@ -18,10 +18,10 @@ const EquipmentCreator = () => {
 
   const handleCreateEquipment = (equipment) => {
     setLoading(true);
-
+    console.log(equipment);
     createEquipment(equipment).then(() => {
       setLoading(false);
-      navigate("/");
+      navigate("/Equipments");
     });
   };
 

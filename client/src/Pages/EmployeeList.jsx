@@ -24,7 +24,6 @@ const EmployeeList = () => {
   );
   const [positionOptions, setPositionOptions] = useAtom(state.positionOptions);
   const [orderedList, setOrderedList] = useAtom(state.orderedList);
-  console.log(orderedList);
   const handleDelete = (id) => {
     deleteEmployee(id);
 
