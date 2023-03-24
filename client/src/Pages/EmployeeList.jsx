@@ -27,7 +27,13 @@ const EmployeeList = () => {
   console.log(orderedList);
   const handleDelete = (id) => {
     deleteEmployee(id);
-
+    console.log(
+      id,
+      employees.filter((employee) => employee._id !== id)
+    );
+    setOrderedList((employees) => {
+      return employees.filter((employee) => employee._id !== id);
+    });
     setEmployees((employees) => {
       return employees.filter((employee) => employee._id !== id);
     });
