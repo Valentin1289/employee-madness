@@ -96,6 +96,12 @@ app.delete("/api/equipments/:id", async (req, res, next) => {
   }
 });
 
+app.patch("/api/assign/brands", (req, res) => {
+
+
+
+});
+
 const main = async () => {
   await mongoose.connect(MONGO_URL);
 

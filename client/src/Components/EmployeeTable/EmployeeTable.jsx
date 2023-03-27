@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useAtom } from "jotai";
 import state from "../../Pages/Atom";
+import TablePagination from "@mui/material/TablePagination";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const EmployeeTable = ({ employees, onDelete }) => {
   const [presence, setPresence] = useAtom(state.presence);
   const tableEl = useRef(null);
+  const [page, setPage] = useState(1);
 
   const handleChange = (e) => {
     let presence = [];
@@ -31,7 +35,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
           </tr>
         </thead>
         <tbody ref={tableEl}>
-          {employees.map((employee) => (
+          {[...employees.slice((page - 1) * 10, page * 10)].map((employee) => (
             <tr key={employee._id}>
               <td>{employee.name}</td>
               <td>{employee.level}</td>
@@ -59,6 +63,15 @@ const EmployeeTable = ({ employees, onDelete }) => {
           ))}
         </tbody>
       </table>
+      <Stack spacing={2}>
+        <Pagination
+          onChange={(e, page) => {
+            setPage(page);
+          }}
+          count={Math.ceil(employees.length / 10)}
+          color="primary"
+        />
+      </Stack>
     </div>
   );
 };

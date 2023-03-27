@@ -7,6 +7,8 @@ const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
+const brandsArr = require("./brands.json");
+const BrandsModel = require("../db/brand.model");
 
 const mongoUrl = process.env.MONGO_URL;
 
@@ -24,16 +26,26 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
+    brand: pick(brandsArr),
   }));
 
   await EmployeeModel.create(...employees);
   console.log("Employees created");
 };
+const populateBrands = async () => {
+  await BrandsModel.deleteMany({});
+  const brands = brandsArr.map((brand) => ({
+    name: brand,
+  }));
+  await BrandsModel.create(...brands)
+  console.log("Brands created");
+
+};
 
 const main = async () => {
   await mongoose.connect(mongoUrl);
 
-  await populateEmployees();
+  // await populateEmployees();
 
   await mongoose.disconnect();
 };
