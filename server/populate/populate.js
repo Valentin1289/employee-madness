@@ -19,33 +19,34 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
+const populateBrands = async () => {
+  await BrandsModel.deleteMany({});
+  const brands = brandsArr.map((brand) => ({
+    name: brand,
+  }));
+  await BrandsModel.create(...brands);
+};
+
 const populateEmployees = async () => {
+  const brandsIDs = (await BrandsModel.find({})).map((brand) => brand._id);
   await EmployeeModel.deleteMany({});
 
   const employees = names.map((name) => ({
     name,
     level: pick(levels),
     position: pick(positions),
-    brand: pick(brandsArr),
+    brand: pick(brandsIDs),
   }));
 
   await EmployeeModel.create(...employees);
   console.log("Employees created");
 };
-const populateBrands = async () => {
-  await BrandsModel.deleteMany({});
-  const brands = brandsArr.map((brand) => ({
-    name: brand,
-  }));
-  await BrandsModel.create(...brands)
-  console.log("Brands created");
-
-};
 
 const main = async () => {
   await mongoose.connect(mongoUrl);
 
-  // await populateEmployees();
+  await populateBrands();
+  await populateEmployees();
 
   await mongoose.disconnect();
 };

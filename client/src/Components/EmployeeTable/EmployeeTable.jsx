@@ -65,6 +65,8 @@ const EmployeeTable = ({ employees, onDelete }) => {
       </table>
       <Stack spacing={2}>
         <Pagination
+          hideNextButton={true}
+          hidePrevButton={true}
           onChange={(e, page) => {
             setPage(page);
           }}

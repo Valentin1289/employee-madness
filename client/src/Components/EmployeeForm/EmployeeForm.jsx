@@ -4,14 +4,24 @@ import { useState, useEffect } from "react";
 let selectedId = {};
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipments, setEquipments] = useState([]);
+  const [brands, setBrands] = useState([]);
+
   useEffect(() => {
-    fetch("/api/equipments")
+    fetch("/api/equipments/")
       .then((res) => res.json())
       .then((data) => setEquipments(data));
   }, []);
 
-  const addEquipment = (id) => {
-    selectedId.equipment = id;
+  useEffect(() => {
+    fetch("/api/brands/")
+      .then((res) => res.json())
+      .then((data) => {
+        setBrands(data);
+      });
+  }, []);
+
+  const addEquipment = (id, key) => {
+    selectedId[key] = id;
     alert("The equipment was seted");
   };
 
@@ -62,29 +72,52 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         />
       </div>
 
-      {employee && (
-        <NavDropdown
-          title="Sort by"
-          id="basic-nav-dropdown"
-          style={{ width: "17vw", marginLeft: "1vw" }}
-        >
-          {equipments &&
-            equipments.map((el, i) => (
-              <NavDropdown.Item
-                key={i}
-                style={{ backgroundColor: "rgba(0,0,0,0)" }}
-              >
-                <button
-                  onClick={() => {
-                    addEquipment(el._id);
-                  }}
+      {
+        <>
+          <NavDropdown
+            title="Choose an equipment"
+            id="basic-nav-dropdown"
+            style={{ width: "17vw", marginLeft: "1vw" }}
+          >
+            {equipments &&
+              equipments.map((el, i) => (
+                <NavDropdown.Item
+                  key={i}
+                  style={{ backgroundColor: "rgba(0,0,0,0)" }}
                 >
-                  {el.name}
-                </button>
-              </NavDropdown.Item>
-            ))}
-        </NavDropdown>
-      )}
+                  <button
+                    onClick={() => {
+                      addEquipment(el._id, "equipment");
+                    }}
+                  >
+                    {el.name}
+                  </button>
+                </NavDropdown.Item>
+              ))}
+          </NavDropdown>
+          <NavDropdown
+            title="Choose an brand"
+            id="basic-nav-dropdown"
+            style={{ width: "17vw", marginLeft: "1vw" }}
+          >
+            {brands &&
+              brands.map((el, i) => (
+                <NavDropdown.Item
+                  key={i}
+                  style={{ backgroundColor: "rgba(0,0,0,0)" }}
+                >
+                  <button
+                    onClick={() => {
+                      addEquipment(el._id, "brand");
+                    }}
+                  >
+                    {el.name}
+                  </button>
+                </NavDropdown.Item>
+              ))}
+          </NavDropdown>
+        </>
+      }
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>
