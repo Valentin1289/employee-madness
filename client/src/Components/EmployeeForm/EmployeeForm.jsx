@@ -1,22 +1,31 @@
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState,useEffect } from "react";
-
+import { useState, useEffect } from "react";
+let selectedId = {};
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
-const [equipments,setEquipments]=useState([])
-useEffect(fetch())
+  const [equipments, setEquipments] = useState([]);
+  useEffect(() => {
+    fetch("/api/equipments")
+      .then((res) => res.json())
+      .then((data) => setEquipments(data));
+  }, []);
+
+  const addEquipment = (id) => {
+    selectedId.equipment = id;
+    alert("The equipment was seted");
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const employee = entries.reduce((acc, entry) => {
+    employee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
-    }, {});
-
+    }, selectedId);
+    console.log(employee);
     return onSave(employee);
   };
 
@@ -52,21 +61,30 @@ useEffect(fetch())
           id="position"
         />
       </div>
-      <NavDropdown
-        title="Sort by"
-        id="basic-nav-dropdown"
-        style={{ width: "17vw", marginLeft: "1vw" }}
-      >
-        <NavDropdown.Item style={{ backgroundColor: "rgba(0,0,0,0)" }}>
-          <button
-          // onClick={() => {
-          //   handlesort(0);
-          // }}
-          >
-            Name
-          </button>
-        </NavDropdown.Item>
-      </NavDropdown>
+
+      {employee && (
+        <NavDropdown
+          title="Sort by"
+          id="basic-nav-dropdown"
+          style={{ width: "17vw", marginLeft: "1vw" }}
+        >
+          {equipments &&
+            equipments.map((el, i) => (
+              <NavDropdown.Item
+                key={i}
+                style={{ backgroundColor: "rgba(0,0,0,0)" }}
+              >
+                <button
+                  onClick={() => {
+                    addEquipment(el._id);
+                  }}
+                >
+                  {el.name}
+                </button>
+              </NavDropdown.Item>
+            ))}
+        </NavDropdown>
+      )}
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>
