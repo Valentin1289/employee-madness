@@ -96,7 +96,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
               ))}
           </NavDropdown>
           <NavDropdown
-            title="Choose an brand"
+            title="Choose a brand"
             id="basic-nav-dropdown"
             style={{ width: "17vw", marginLeft: "1vw" }}
           >
@@ -108,7 +108,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
                 >
                   <button
                     onClick={() => {
-                      addEquipment(el._id, "brand");
+                      addEquipment(el._id, "FavoriteBrand");
                     }}
                   >
                     {el.name}

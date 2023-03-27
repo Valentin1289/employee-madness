@@ -11,7 +11,7 @@ const EmployeeSchema = new Schema({
     default: Date.now,
   },
   equipment: { type: Schema.Types.ObjectId, ref: "Equipment" },
-  brand: { type: Schema.Types.ObjectId, ref: "Brand" },
+  FavoriteBrand:{ type: Schema.Types.ObjectId, ref: "Brand" },
 });
 
 module.exports = model("Employee", EmployeeSchema);

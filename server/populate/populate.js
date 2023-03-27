@@ -35,7 +35,7 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
-    brand: pick(brandsIDs),
+    FavoriteBrand: pick(brandsIDs),
   }));
 
   await EmployeeModel.create(...employees);
@@ -47,6 +47,8 @@ const main = async () => {
 
   await populateBrands();
   await populateEmployees();
+  await EmployeeModel.find({}).populate("FavoriteBrand")
+
 
   await mongoose.disconnect();
 };

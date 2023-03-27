@@ -30,6 +30,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
             <th>Level</th>
             <th>Position</th>
             <th>Present</th>
+            <th>FavoriteBrand</th>
             <th></th>
             <th />
           </tr>
@@ -50,6 +51,11 @@ const EmployeeTable = ({ employees, onDelete }) => {
                     checked={presence.includes(employee._id)}
                   />
                 </label>
+              </td>
+              <td>
+                {employee.FavoriteBrand.name
+                  ? employee.FavoriteBrand.name
+                  : employee.FavoriteBrand}
               </td>
               <td>
                 <Link to={`/update/${employee._id}`}>
