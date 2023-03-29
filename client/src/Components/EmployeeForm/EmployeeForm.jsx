@@ -1,10 +1,11 @@
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 let selectedId = {};
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipments, setEquipments] = useState([]);
   const [brands, setBrands] = useState([]);
+  const levelInput = useRef(null);
 
   useEffect(() => {
     fetch("/api/equipments/")
@@ -39,6 +40,24 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     return onSave(employee);
   };
 
+  const handleSetLevel = (e) => {
+    let val = e.target.value;
+    !isNaN(e.target.value) &&
+      (() => {
+        val *= 1;
+        levelInput.current.value =
+          val < 101
+            ? "Junior"
+            : val < 301
+            ? "Medior"
+            : val < 401
+            ? "Senior"
+            : val < 801
+            ? "Expert"
+            : "Godlike";
+      })();
+  };
+
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
       {employee && (
@@ -60,6 +79,8 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           defaultValue={employee ? employee.level : null}
           name="level"
           id="level"
+          ref={levelInput}
+          readOnly
         />
       </div>
 
@@ -69,6 +90,15 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           defaultValue={employee ? employee.position : null}
           name="position"
           id="position"
+        />
+      </div>
+      <div className="control">
+        <label htmlFor="salary">Salary:</label>
+        <input
+          defaultValue={employee ? employee.salary || "Unspecified" : null}
+          name="salary"
+          id="salary"
+          onChange={handleSetLevel}
         />
       </div>
 

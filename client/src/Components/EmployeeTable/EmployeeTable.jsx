@@ -1,20 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./EmployeeTable.css";
 import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
 import state from "../../Pages/Atom";
-import TablePagination from "@mui/material/TablePagination";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 let k = 1;
 const EmployeeTable = ({ employees, onDelete }) => {
   const [sortedEmployees, setSortedEmployees] = useState([]);
+  const [presence, setPresence] = useAtom(state.presence);
+  const [page, setPage] = useState(1);
+  const tableEl = useRef(null);
+  const [[h, o], setUrl] = useState(["", ""]);
+  let { header, order } = useParams();
   useEffect(() => {
     setSortedEmployees(employees);
   }, [employees]);
-  const [presence, setPresence] = useAtom(state.presence);
-  const tableEl = useRef(null);
-  const [page, setPage] = useState(1);
+  console.log("rerendered");
 
   const handleChange = (e) => {
     let presence = [];
@@ -24,13 +26,18 @@ const EmployeeTable = ({ employees, onDelete }) => {
     console.log(presence);
     setPresence(presence);
   };
-  const handleSort = () => {
-    setSortedEmployees((prev) =>
-      [...prev].sort((a, b) =>
-        a.name.toLowerCase() > b.name.toLowerCase() ? 1 * k : -1 * k
+  const handleSort = (crit) => {
+    setSortedEmployees(
+      employees.sort((a, b) =>
+        a[crit].toLowerCase() > b[crit].toLowerCase()
+          ? order === "asc"
+            ? -1
+            : 1
+          : order === "asc"
+          ? 1
+          : -1
       )
     );
-    k *= -1;
   };
 
   return (
@@ -38,11 +45,36 @@ const EmployeeTable = ({ employees, onDelete }) => {
       <table>
         <thead>
           <tr>
-            <th className="name-crit" onClick={handleSort}>
-              Name
+            <th
+              className="name-crit"
+              onClick={() => {
+                handleSort("name");
+              }}
+            >
+              <Link to={`/employees/name/${order === "asc" ? "desc" : "asc"}`}>
+                Name
+              </Link>
             </th>
-            <th>Level</th>
-            <th>Position</th>
+            <th
+              onClick={() => {
+                handleSort("level");
+              }}
+            >
+              <Link to={`/employees/level/${order === "asc" ? "desc" : "asc"}`}>
+                Level
+              </Link>
+            </th>
+            <th
+              onClick={() => {
+                handleSort("position");
+              }}
+            >
+              <Link
+                to={`/employees/position/${order === "asc" ? "desc" : "asc"}`}
+              >
+                Position
+              </Link>
+            </th>
             <th>Present</th>
             <th>FavoriteBrand</th>
             <th></th>

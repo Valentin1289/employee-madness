@@ -48,6 +48,9 @@ const router = createBrowserRouter([
         path: "/employees/:search",
         element: <SearchedEmployees />,
       },
+      {path:"/employees/:header/:order",
+      element:<EmployeeList/>,
+      },
       {
         path: "/missing",
         element: <MissingEmployees />,
