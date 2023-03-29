@@ -47,8 +47,6 @@ const main = async () => {
 
   await populateBrands();
   await populateEmployees();
-  await EmployeeModel.find({}).populate("FavoriteBrand")
-
 
   await mongoose.disconnect();
 };
