@@ -1,5 +1,27 @@
 # Employee Data
 
+## Project Description
+
+This is a solo project where I learned to use advanced MERN stack operations and routing. The project focuses on managing employee data for a company, allowing a wide variety of operations on its database.
+
+### Technologies Used
+
+I utilized the following technologies:
+
+- **Node.js**: A runtime environment for server-side JavaScript execution.
+- **Express.js**: Backend development, creating APIs.
+- **MongoDB**: Storing user data and employee information.
+- **React**: Dynamic UI components.
+- **Bootstrap**: Responsive styling.
+- **CSS**: Custom styling.
+
+### Challenges
+
+Challenges faced during development:
+
+- Designing a well-structured architecture, considering the large number of components.
+- Ensuring that functionalities do not interfere with each other.
+
 ## Server side
 
 ### Install dependencies
@@ -28,10 +50,6 @@ npm run dev
 ```
 
 It will start the server with nodemon. So it will watch the changes and restart the server if some ot the files changed.
-
-### Testing with test.http
-
-If you like to try the endpoints of the rest api, you can check the test.http file for urls are should work on your environment as well. And if you install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extenstion for vscode you can actually run those in your editor.
 
 
 
